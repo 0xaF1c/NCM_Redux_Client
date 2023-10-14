@@ -1,0 +1,80 @@
+{
+  "name": "ncm-redux-client",
+  "author": "0xaf1c",
+  "description": "a netease cloud music client",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && electron-builder",
+    "preview": "vite preview",
+    "build:win": "vue-tsc && vite build && electron-builder --win",
+    "build:mac": "electron-builder --mac --config",
+    "build:linux": "electron-builder --linux --config",
+    "build-icon": "electron-icon-builder --input=./public/icon.png --output=./public/icons --flatten"
+  },
+  "dependencies": {
+    "@vicons/fluent": "^0.12.0",
+    "autoprefixer": "^10.4.16",
+    "axios": "^1.5.1",
+    "electron-vite": "^1.0.28",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.9",
+    "live-server": "^1.2.2",
+    "md5": "^2.3.0",
+    "music-metadata": "^7.5.3",
+    "naive-ui": "^2.34.4",
+    "pac-proxy-agent": "^5.0.0",
+    "postcss": "^8.4.31",
+    "qrcode": "^1.4.4",
+    "rgbaster": "^2.1.1",
+    "safe-decode-uri-component": "^1.2.1",
+    "tailwindcss": "^3.3.3",
+    "tunnel": "^0.0.6",
+    "vue": "^3.3.4",
+    "vue-request": "^2.0.3",
+    "vue-router": "^4.2.5",
+    "vue3-cookies": "^1.0.6",
+    "vuex": "^4.1.0",
+    "yargs": "^17.1.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.3.4",
+    "electron": "^26.1.0",
+    "electron-builder": "^24.6.4",
+    "less": "^4.2.0",
+    "less-loader": "^11.1.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-electron": "^0.14.0",
+    "vite-plugin-electron-renderer": "^0.14.5",
+    "vue-tsc": "^1.8.5"
+  },
+  "main": "dist-electron/main.js",
+  "build": {
+    "productName": "NCM_Redux",
+    "appId": "com.af1c.NCM_Redux",
+    "mac": {
+      "icon": "public/icons/icon.icns"
+    },
+    "win": {
+      "icon": "public/icons/icon.ico"
+    },
+    "linux": {
+      "icon": "public/icons/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "guid": "com.af1c.NCM_Redux",
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "public/icons/icon.ico",
+      "uninstallerIcon": "public/icons/icon.ico",
+      "installerHeaderIcon": "public/icons/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "NCM_Redux"
+    }
+  }
+}
