@@ -3,7 +3,7 @@ import axios from 'axios'
 axios.defaults.withCredentials = true
 const http = axios.create({
   // baseURL: 'http://111.180.195.83:3000/', // 生产环境
-  baseURL: 'http://localhost:3000', // 开发环境
+  baseURL: 'http://localhost:19929', // 开发环境
   timeout: 60000,
   withCredentials: true,
 })
@@ -23,8 +23,9 @@ http.interceptors.request.use((config) => {
     if (config.params === undefined) {
       config.params = {}
     }
-    
-    config.params.cookie = `MUSIC_U=${localStorage.getItem('MUSIC_U')};`
+    if (localStorage.getItem('MUSIC_U') != null) {
+      config.params.cookie = `MUSIC_U=${localStorage.getItem('MUSIC_U')};`
+    }
     // if (authList.includes(config.url)) {
     // }
   }

@@ -54,7 +54,7 @@ onBeforeRouteLeave((_to, from, next) => {
 
 </script>
 
-<template>
+<template>   
   <n-config-provider :theme="theme" :theme-overrides="theme === null ? lightThemeOverrides : darkThemeOverrides">
     <n-message-provider>
       <n-loading-bar-provider>

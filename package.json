@@ -8,9 +8,9 @@
     "dev": "vite",
     "build": "vite build && electron-builder",
     "preview": "vite preview",
-    "build:win": "vue-tsc && vite build && electron-builder --win",
-    "build:mac": "electron-builder --mac --config",
-    "build:linux": "electron-builder --linux --config",
+    "build:win": "vite build && electron-builder --win",
+    "build:mac": "vite build && electron-builder --mac --config",
+    "build:linux": "vite build && electron-builder --linux --config",
     "build-icon": "electron-icon-builder --input=./public/icon.png --output=./public/icons --flatten"
   },
   "dependencies": {
