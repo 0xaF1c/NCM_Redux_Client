@@ -27,3 +27,4 @@ release
 *.sln
 *.sw?
 module/NeteaseCloudMusicApi
+dist-vite/index.html

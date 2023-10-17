@@ -87,13 +87,11 @@ const onHeaderMouseup = () => {
       if (timer == null) {
         timer = setInterval(async () => {
           maximize.value = await window.ipcRenderer.invoke('isMaximized')
-          console.log(maximize.value)
           
           if (!maximize.value) clearInterval(timer!)
         }, 500)
       }
     }
-    console.log(maximize.value)
   }, 100)
 }
 ; (async () => {
