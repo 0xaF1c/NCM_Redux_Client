@@ -79,30 +79,47 @@ const onHidden = () => {
 const onClose = () => {
   window.ipcRenderer.invoke('close')
 }
-
-  ; (async () => {
-    if (isLoggedIn()) {
-      const _profile = (await getUserStatus())?.data?.data?.profile
-
-      if (_profile) {
-        success('获取状态成功')
-        profile.value = _profile
-
+const onHeaderMouseup = () => {
+  setTimeout(async () => {
+    maximize.value = await window.ipcRenderer.invoke('isMaximized')
+    let timer = null
+    if (maximize.value) {
+      if (timer == null) {
+        timer = setInterval(async () => {
+          maximize.value = await window.ipcRenderer.invoke('isMaximized')
+          console.log(maximize.value)
+          
+          if (!maximize.value) clearInterval(timer!)
+        }, 500)
       }
+    }
+    console.log(maximize.value)
+  }, 100)
+}
+; (async () => {
+  if (isLoggedIn()) {
+    const _profile = (await getUserStatus())?.data?.data?.profile
 
-    } else {
-      info('您还未登录')
+    if (_profile) {
+      success('获取状态成功')
+      profile.value = _profile
+
     }
 
-  })()
+  } else {
+    info('您还未登录')
+  }
+  window.onmouseup = onHeaderMouseup
+})()
 const handlePositiveClick = () => {
   success('退出登录成功')
   logout()
 }
+
 </script>
 
 <template>
-  <n-layout-header style="z-index: 10" bordered class="header">
+  <n-layout-header style="z-index: 10" bordered class="header" @click="onHeaderMouseup">
     <n-space align="center" justify="space-around" style="-webkit-app-region: drag;">
       <n-space align="center">
         <img src="/cloud_music.svg" width="70" />

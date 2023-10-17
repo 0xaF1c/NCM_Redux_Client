@@ -84,5 +84,8 @@ app.whenReady().then(() => {
   ipcMain.handle('close', () => {
     win.close()
   })
+  ipcMain.handle('isMaximized', () => {
+    return win.isMaximized()
+  })
 })
 
