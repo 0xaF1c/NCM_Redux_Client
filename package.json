@@ -3,7 +3,7 @@
   "author": "0xaf1c",
   "description": "a netease cloud music client",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.2",
   "scripts": {
     "dev": "vite",
     "build": "vite build && electron-builder",
