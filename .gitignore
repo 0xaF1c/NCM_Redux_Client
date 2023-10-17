@@ -12,6 +12,7 @@ node_modules
 dist
 dist-ssr
 dist-electron
+dist-vite
 release
 *.local
 
@@ -26,4 +27,3 @@ release
 *.sln
 *.sw?
 module/NeteaseCloudMusicApi
-dist-vite
