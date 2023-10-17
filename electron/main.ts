@@ -25,6 +25,8 @@ function createWindow() {
     // icon: path.join(process.env.VITE_PUBLIC, 'icon.png'),
     width: 1400,
     height: 800,
+    titleBarStyle: 'hidden',
+    frame: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       webSecurity: true,
@@ -44,6 +46,7 @@ function createWindow() {
     win.loadFile('./dist-vite/index.html')
     // win.loadURL('http://127.0.0.1:5173')
   }
+  return win
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -65,6 +68,21 @@ app.on('activate', () => {
 })
 
 app.whenReady().then(() => {
-  createWindow()
+  const win = createWindow()
+
+  ipcMain.handle('onMaximizeToggle', (event, value) => {
+    if (value) {
+      win.maximize()
+    } else {
+      win.restore()
+    }
+  })
+
+  ipcMain.handle('hidden', () => {
+    win.minimize()
+  })
+  ipcMain.handle('close', () => {
+    win.close()
+  })
 })
 

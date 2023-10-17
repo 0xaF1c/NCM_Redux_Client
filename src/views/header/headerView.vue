@@ -11,6 +11,12 @@ import {
   useMessage,
   NButton
 } from 'naive-ui'
+import {
+  Square24Regular,
+  SquareMultiple24Regular,
+  Subtract24Filled,
+  Dismiss24Filled
+} from '@vicons/fluent'
 import searchView from './searchView.vue'
 
 import { useToggleTheme } from '../../utils/toggleTheme'
@@ -42,6 +48,7 @@ const onThemeToggle = () => {
 const profile = ref()
 const backDisable = ref(window.history?.state.back === null)
 const forwardDisable = ref(window.history?.state.forward === null)
+const maximize = ref(false)
 
 watch(
   () => route.path,
@@ -59,6 +66,18 @@ const onBack = () => {
 const onForward = () => {
   forwardDisable.value = window.history?.state.forward === null
   forward()
+}
+
+const onMaximizeToggle = () => {
+  maximize.value = !maximize.value
+  window.ipcRenderer.invoke('onMaximizeToggle', maximize.value)
+}
+const onHidden = () => {
+  window.ipcRenderer.invoke('hidden')
+
+}
+const onClose = () => {
+  window.ipcRenderer.invoke('close')
 }
 
   ; (async () => {
@@ -84,7 +103,7 @@ const handlePositiveClick = () => {
 
 <template>
   <n-layout-header style="z-index: 10" bordered class="header">
-    <n-space align="center" justify="space-around">
+    <n-space align="center" justify="space-around" style="-webkit-app-region: drag;">
       <n-space align="center">
         <img src="/cloud_music.svg" width="70" />
         <div style="display: flex; align-items: center;">
@@ -128,6 +147,24 @@ const handlePositiveClick = () => {
         您是否要退出登录
       </n-popconfirm>
       <n-avatar v-if="!isLoggedIn()" @click="showLoginModal()" src="./default.png" size="large" circle />
+      <n-space justify="center">
+        <n-button size="large" circle quaternary @click="onHidden">
+          <template #icon>
+            <n-icon :component="Subtract24Filled"></n-icon>
+          </template>
+        </n-button>
+        <n-button size="large" circle quaternary @click="onMaximizeToggle">
+          <template #icon>
+            <n-icon v-show="maximize" :component="SquareMultiple24Regular"></n-icon>
+            <n-icon v-show="!maximize" :component="Square24Regular"></n-icon>
+          </template>
+        </n-button>
+        <n-button size="large" circle quaternary @click="onClose">
+          <template #icon>
+            <n-icon :component="Dismiss24Filled"></n-icon>
+          </template>
+        </n-button>
+      </n-space>
     </n-space>
   </n-layout-header>
 </template>
@@ -145,6 +182,10 @@ const handlePositiveClick = () => {
   align-items: center;
   padding-left: @total-padding-left;
   padding-right: @total-padding-right;
+  -webkit-app-region: drag;
+  * {
+    -webkit-app-region: no-drag;
+  }
 }
 
 .n-avatar {
